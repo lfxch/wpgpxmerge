@@ -7,8 +7,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/admin/partials
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/admin/partials
  */
 
 
@@ -17,10 +17,10 @@ $wpq = new WP_Query( $_REQUEST );
 switch($wpq->get('act')){
 	case 'new':
     case 'edit':
-		include_once 'wpgpxmapsmerge-admin-edit.php';
+		include_once 'wpgpxmerge-admin-edit.php';
 		break;
 	default:
-		include_once 'wpgpxmapsmerge-admin-overview.php';
+		include_once 'wpgpxmerge-admin-overview.php';
 }
 
 

@@ -1,4 +1,4 @@
-=== WP-GPX-MAPS Merge Addon ===
+=== wpGPXmerge Merge Addon ===
 Donate link: http://lfx.ch/
 Tags: gpx, merge, maps
 Requires at least: 4.5.3
@@ -18,7 +18,7 @@ Merge multiple GPX files into one. Includes Reducing Options for very large GPX 
 
 == Installation ==
 
-1. Copy wpgpxmapsmerge to your Plugin Folder
+1. Copy wpgpxmerge to your Plugin Folder
 2. Activate the Plugin
 
 

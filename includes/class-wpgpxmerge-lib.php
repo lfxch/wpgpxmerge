@@ -7,7 +7,7 @@
  */
 
 
-class libgpxmerge {
+class wpgpxmerge_lib {
 
     /**
      * @var array
@@ -15,7 +15,7 @@ class libgpxmerge {
     private $files = array();
 
     /**
-     * @var trk[]
+     * @var wpgpxmerge_trk[]
      */
     public $tracks = array();
 
@@ -28,14 +28,10 @@ class libgpxmerge {
     public $points_raw = 0;
     public $points_reduced = 0;
     public $points_exported = 0;
-
     public $reduce_points = true;
     public $reduce_ftol = 3;
-
     public $reduce_lin = true;
     public $reduce_ftol_lin = 1;
-
-
     public $last_outfile = '';
     public $partial_merge = true; // use this for very large merge operations, it uses less memory
     public $parts = array();
@@ -46,7 +42,7 @@ class libgpxmerge {
     public $orig_size = 0;
 
     /**
-     * libgpxmerge constructor.
+     * wpgpxmerge_lib constructor.
      */
     function __construct(){
     }
@@ -65,7 +61,6 @@ class libgpxmerge {
         if(file_exists($fp)){
             $this->files[] = $fp;
             return $this->parseGPXfile($fp);
-
         }
         return false;
     }
@@ -84,14 +79,14 @@ class libgpxmerge {
             return false;
         }
 
-        $stat = new wpgpxmergetrackstats();
+        $stat = new wpgpxmerge_trackstats();
         $stat->orig_file = $file;
 
         $this->orig_size += filesize($file);
 
-        $track = new trk();
-        $segment = new trkseg();
-        $point = new trkpt();
+        $track = new wpgpxmerge_trk();
+        $segment = new wpgpxmerge_trkseg();
+        $point = new wpgpxmerge_trkpt();
 
         $tracks = array();
 
@@ -103,21 +98,21 @@ class libgpxmerge {
             if($x->nodeType == XMLReader::ELEMENT){
                 switch ($x->name){
                     case 'trk':
-                        $track = new trk();
+                        $track = new wpgpxmerge_trk();
                         $tracks[] = $track;
                         break;
                     case 'trkseg':
-                        $segment = new trkseg();
+                        $segment = new wpgpxmerge_trkseg();
                         $track->addSegment($segment);
                         break;
                     case 'trkpt':
-                        $point = new trkpt();
+                        $point = new wpgpxmerge_trkpt();
                         $point->importDOMNode( $x->expand() );
 
                         $this->points_raw++;
 
                         if($lastpoint_dist !== null){
-                            $dist = trkpt::distance($point,$lastpoint_dist);
+                            $dist = wpgpxmerge_trkpt::distance($point,$lastpoint_dist);
                             $this->distance+=$dist;
                             $stat->distance += $dist;
 
@@ -145,6 +140,7 @@ class libgpxmerge {
 
                         if($lastpoint !== null){
 
+                            $dist = wpgpxmerge_trkpt::distance($point,$lastpoint);
 
                             if($this->reduce_lin){
                                 if($dist < $this->reduce_ftol_lin){
@@ -182,16 +178,7 @@ class libgpxmerge {
                     // reducing until there is nothing to reduce!
                 }
             }
-/**
-            foreach($tracks as $track){
-                foreach($track->getSegments() as $segment){
-                    foreach($segment->getTrackPoints() as $trackpoint){
-                        if($trackpoint)
 
-                    }
-                }
-            }
-**/
             if($this->partial_merge){
                 $this->tracks = $tracks;
                 $file = $this->outfile.'_part'.(count($this->parts)+1);
@@ -223,7 +210,7 @@ class libgpxmerge {
 
 
         $header = '<?xml version=\'1.0\' encoding=\'UTF-8\' standalone=\'yes\' ?>
-<gpx version="1.1" creator="merged bei libgpxmerge" xmlns="http://www.topografix.com/GPX/1/1" 
+<gpx version="1.1" creator="merged bei wpgpxmerge_lib" xmlns="http://www.topografix.com/GPX/1/1" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">';
         $footer = '</gpx>';
@@ -338,17 +325,17 @@ XML;
         $points = 0;
 
         /**
-         * @var trkpt $buf1
+         * @var wpgpxmerge_trkpt $buf1
          */
         $buf1 = null;
 
         /**
-         * @var trkpt $buf2
+         * @var wpgpxmerge_trkpt $buf2
          */
         $buf2 = null;
 
         /**
-         * @var trkpt $buf3
+         * @var wpgpxmerge_trkpt $buf3
          */
         $buf3 = null;
         $last_point_of_segment = null;
@@ -372,9 +359,9 @@ XML;
                     }
                     $buf3 = $point;
 
-                    $a = trkpt::distance($buf2,$buf3); // distanz p2 - p3
-                    $b = trkpt::distance($buf1,$buf2); // distanz p1 - p2
-                    $c = trkpt::distance($buf1,$buf3); // distanz p1 - p3
+                    $a = wpgpxmerge_trkpt::distance($buf2,$buf3); // distanz p2 - p3
+                    $b = wpgpxmerge_trkpt::distance($buf1,$buf2); // distanz p1 - p2
+                    $c = wpgpxmerge_trkpt::distance($buf1,$buf3); // distanz p1 - p3
 
                     $alpha = 0;
                     $hc = 0;
@@ -413,258 +400,8 @@ XML;
 }
 
 
-class trk {
-
-    /**
-     * @var trkseg[]
-     */
-    private $segments = array();
-
-    /**
-     * @param trkseg $trkseg
-     * @return bool
-     */
-    public function addSegment(trkseg $trkseg){
-        $this->segments[] = $trkseg;
-        return true;
-    }
-
-    /**
-     * @return trkseg[]
-     */
-    public function getSegments(){
-        return $this->segments;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString(){
-        return 'Segments: '.count($this->segments);
-    }
-}
-
-class trkseg {
-
-    /**
-     * @var trkpt[]
-     */
-    private $points = array();
-
-    /**
-     * @param trkpt $trkpt
-     * @return bool
-     */
-    public function addPoint(trkpt $trkpt){
-        $this->points[] = $trkpt;
-        return true;
-    }
-
-    /**
-     * @return trkpt[]
-     */
-    public function getTrackPoints(){
-        return $this->points;
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString(){
-        return 'points: '.count($this->points);
-    }
-}
-
-class trkpt {
-
-    /**
-     * latitude
-     * @var int
-     */
-    public $lat = 0;
-
-    /**
-     * longitude
-     * @var int
-     */
-    public $lon = 0;
-
-    /**
-     * elevation
-     * @var int
-     */
-    public $ele = 0;
-
-    /**
-     * raw time
-     * @var string
-     */
-    public $time = '';
-
-    /**
-     * @var DOMNode
-     */
-    private $node;
-
-    /**
-     * reducer sets this to true if that point should be ommited
-     *
-     * @var bool
-     */
-    public $reduced = false;
-
-    public function cleanup(){
-        $this->lat = null;
-        $this->lon = null;
-        $this->ele = null;
-        $this->time = null;
-        $this->node = null;
-    }
-
-    /**
-     * import dom node from xmlreader
-     *
-     * @param DOMNode $node
-     * @return bool
-     */
-    public function importDOMNode( DOMNode $node ){
-
-        $this->node = $node;
-
-        $doc = new DOMDocument();
-        $sxe = simplexml_import_dom($doc->importNode($node,true));
-
-        //print $sxe->asXML();
-
-        $this->ele = $sxe->ele;
-        $this->time = $sxe->time;
-
-        $attribs = (array) $sxe->attributes();
-        $this->lat = $attribs["@attributes"]['lat'];
-        $this->lon = $attribs["@attributes"]['lon'];
-
-        return true;
-    }
-
-    /**
-     * @return DOMNode
-     */
-    public function getNode(){
-        return $this->node;
-    }
-
-    /**
-     * get unix timestamp from raw time
-     *
-     * @return int
-     */
-    public function getTimeStamp(){
-        return strtotime($this->time);
-    }
-
-    /**
-     * debug output
-     *
-     * @return string
-     */
-    public function __toString(){
-        return $this->getTimeStamp().' - long: '.$this->lon.' / lat: '.$this->lat.' @'.$this->ele.'m';
-    }
-
-    /**
-     * return as xml string
-     *
-     * @return string
-     */
-    public function toXML(){
-        $sxe = new SimpleXMLElement( '<trkpt />' );
-        $this->addToSimpleXMLElement($sxe);
-        $xml = $sxe->asXML();
-
-        // oke, das ist doof, aber hab grad auf die schnelle nicht rausgefunden wie ich das sonst weg kriege
-        $xml = preg_replace('/\<\?xml(.*)?>/Ui','',$xml);
-
-        return $xml;
-    }
-
-    /**
-     * add trackpoint to an existing simplexmlelement
-     * @param $ele
-     */
-    public function addToSimpleXMLElement( $ele ){
-        $ele->addAttribute('lat',$this->lat);
-        $ele->addAttribute('lon',$this->lon);
-        $ele->addChild('ele',$this->ele);
-        $ele->addChild('time',$this->time);
-    }
-
-    /**
-     * calculate distance (in meters) between two track points using Haversine
-     * error rate +- 0.3%
-     *
-     * @return int
-     */
-    public static function distance(trkpt $p1, trkpt $p2){
-
-        $R = 6371000; // avg earth radius
-        $r_lat1 = deg2rad($p1->lat);
-        $r_lat2 = deg2rad($p2->lat);
-        $d_lat = deg2rad( $p2->lat - $p1->lat );
-        $d_lon = deg2rad( $p2->lon - $p1->lon );
-
-        $a = pow( sin($d_lat/2), 2) +
-            cos($r_lat1) * cos($r_lat2) *
-            pow( sin($d_lon/2), 2);
-
-        $c = 2 * atan2( sqrt($a), sqrt(1-$a) );
-
-        $dist = $R * $c;
 
 
-        return $dist;
-    }
 
-}
 
-class wpgpxmergetrackstats {
-    public $up;
-    public $down;
-    public $ele;
-    public $start;
-    public $stop;
-    public $distance;
-    public $start_lat;
-    public $start_lon;
-    public $stop_lat;
-    public $stop_lon;
-    public $orig_file;
 
-    function __construct($data = array()){
-        foreach($data as $k=>$v){
-            if(property_exists($this,$k)){
-                $this->$k = $v;
-            }
-        }
-    }
-
-    function __toString()
-    {
-        $s = 'Distance: '.$this->distance
-            .', Up: '.$this->up
-            .', Down: '.$this->down
-            .', Ele: '.$this->ele
-            .', Start: '.date('d.m.Y H:i:s', $this->start)
-            .', Stop: '.date('d.m.Y H:i:s', $this->stop)
-            .', Started @ lat: '.$this->start_lat.' / lng: '.$this->start_lon
-            .', Stopped @ lat: '.$this->stop_lat.' / lng: '.$this->stop_lon;
-        return $s;
-    }
-
-    function asArr(){
-        $arr = array();
-        foreach ($this as $k=>$v) {
-            $arr[$k] = $v;
-        }
-        return $arr;
-    }
-}

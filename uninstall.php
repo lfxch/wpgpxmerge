@@ -22,7 +22,7 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
+ * @package    wpgpxmerge
  */
 
 // If uninstall not called from WordPress, then exit.

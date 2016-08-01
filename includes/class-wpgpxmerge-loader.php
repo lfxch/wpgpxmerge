@@ -6,8 +6,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  */
 
 /**
@@ -17,11 +17,11 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge_Loader {
+class wpgpxmerge_Loader {
 
 	/**
 	 * The array of actions registered with WordPress.

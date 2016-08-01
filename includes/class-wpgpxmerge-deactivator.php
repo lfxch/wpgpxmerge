@@ -6,8 +6,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  */
 
 /**
@@ -16,11 +16,11 @@
  * This class defines all code necessary to run during the plugin's deactivation.
  *
  * @since      1.0.0
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge_Deactivator {
+class wpgpxmerge_Deactivator {
 
 	/**
 	 * Short Description. (use period)

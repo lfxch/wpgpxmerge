@@ -23,3 +23,9 @@
 .wpgpxmerge_table th + th {
     text-align: right;
 }
+
+
+.wpgpxmerge_table tr.total td  {
+    font-weight: bold;
+    font-style: italic;
+}

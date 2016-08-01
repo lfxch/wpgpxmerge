@@ -9,8 +9,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  */
 
 /**
@@ -20,11 +20,11 @@
  * so that it is ready for translation.
  *
  * @since      1.0.0
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge_i18n {
+class wpgpxmerge_i18n {
 
 
 	/**
@@ -35,7 +35,7 @@ class Wpgpxmapsmerge_i18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'wpgpxmapsmerge',
+			'wpgpxmerge',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);

@@ -1,0 +1,214 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.wpgpxmerge_track_list {
+    padding: 10px;
+}
+
+.wpgpxmerge_track_list .trackfile {
+    padding: 0.625em;
+    border-top: 1px solid #ddd;
+    margin-bottom: 3px;
+    display: table;
+    width: 100%;
+}
+
+
+.trackfile_column {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.trackfile_column:first-of-type {
+    zzwidth: 100%;
+}
+
+#selected_tracks .fullwidth {
+    width: 100%;
+}
+
+
+.trackfile_column button {
+    padding: 0.5em;
+    padding-left: 1em;
+    padding-right: 1em;
+    margin: 3px;
+}
+
+
+.trackfile span{
+    display: block;
+}
+
+.trackfile .relpath{
+    font-size: x-small;
+}
+
+.trackfile .filename{
+    font-size: large;
+}
+
+.bbox {
+    box-sizing: border-box;
+}
+
+.track_selection_table {
+    display: table;
+    width: 100%;
+}
+
+.track_selection_column {
+    display: table-cell;
+    padding: 20px;
+}
+
+.track_selection_column strong {
+    padding: 10px;
+}
+
+
+
+.track_selection_column:first-of-type {
+    width: 100%;
+    border-right: 1px solid #ddd;
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #23282d;
+}
+
+/** FUNC */
+#available_tracks .sel {
+    visibility: hidden;
+    display: none;
+}
+
+#selected_tracks .avail {
+    visibility: hidden;
+    display: none;
+}
+
+#selected_tracks .trackfile:first-of-type .b_up {
+    visibility: hidden;
+}
+
+#selected_tracks .trackfile:last-of-type .b_down {
+    visibility: hidden;
+}
+
+.wpgpxmerge_track_list input[type=checkbox] {
+    display: none;
+}
+
+
+
+#wgmm_embedd {
+    border: 1px dashed red;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #32373c;
+    background-color: #fff;
+    padding: 10px;
+    font-size: x-large;
+    display: block;
+
+}
+
+.wgmm_messages {
+    border: 1px dashed #32373c;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #32373c;
+    background-color: #fff;
+    padding: 10px;
+    font-size: medium;
+}
+
+.wgmm_messages span {
+    display: block;
+}
+
+.wgmm_messages .wqmm_error {
+    color: red;
+}
+
+.wgmm_messages .wqmm_warn {
+    color: orange;
+}
+
+.wgmm_messages .wqmm_info {
+    color: #32373c;
+}
+
+.wgmm_messages .wqmm_debug {
+    color: #32373c;
+}
+
+.log_div {
+    border: 1px solid #72777c;
+    background-color: #f0f0f0;
+    font-size: large;
+    padding: 20px;
+    margin-top: 1em;
+
+}
+
+#log {
+    border: 1px solid black;
+    background-color: #fcfcfc;
+    font-size: x-small;
+    padding: 10px;
+}
+
+#preview {
+    padding: 20px;
+}
+
+
+.gpxmerge_overview_maps a {
+    display: table;
+
+
+    box-shadow:inset 0px 1px 0px 0px #ffffff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+    background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+    background-color:#ededed;
+    border-radius:6px;
+    text-indent:0;
+    border:1px solid #dcdcdc;
+    color:#777777;
+    font-family:arial;
+    font-size:15px;
+    font-weight:bold;
+    font-style:normal;
+    height:50px;
+    line-height:50px;
+    width:100px;
+    text-decoration:none;
+    text-align:center;
+    text-shadow:1px 1px 0px #ffffff;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    min-width: 300px;
+}
+.gpxmerge_overview_maps a:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+    background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+    background-color:#dfdfdf;
+}
+
+
+.gpxmerge_overview_maps a div {
+    display: table-cell;
+    text-align: left;
+
+}
+
+.gpxmerge_overview_maps a div:first-of-type {
+    width: 48px;
+}
+
+
+.gpxmerge_overview_maps img {
+    vertical-align: middle;
+}

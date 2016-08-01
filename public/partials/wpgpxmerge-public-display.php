@@ -8,8 +8,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/public/partials
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/public/partials
  */
 ?>
 

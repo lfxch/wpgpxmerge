@@ -9,8 +9,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  */
 
 /**
@@ -23,11 +23,11 @@
  * version of the plugin.
  *
  * @since      1.0.0
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/includes
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/includes
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge {
+class wpgpxmerge {
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -35,7 +35,7 @@ class Wpgpxmapsmerge {
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      Wpgpxmapsmerge_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 * @var      wpgpxmerge_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
 	protected $loader;
 
@@ -68,13 +68,16 @@ class Wpgpxmapsmerge {
 	 */
 	public function __construct() {
 
-		$this->plugin_name = 'wpgpxmapsmerge';
-		$this->version = '0.0.1';
+		$this->plugin_name = 'wpgpxmerge';
+		$this->version = '0.1.0';
 
 		$this->load_dependencies();
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+		// register shortcodes
+		wpgpxmerge_display::register_shortcodes();
 
 	}
 
@@ -83,10 +86,10 @@ class Wpgpxmapsmerge {
 	 *
 	 * Include the following files that make up the plugin:
 	 *
-	 * - Wpgpxmapsmerge_Loader. Orchestrates the hooks of the plugin.
-	 * - Wpgpxmapsmerge_i18n. Defines internationalization functionality.
-	 * - Wpgpxmapsmerge_Admin. Defines all hooks for the admin area.
-	 * - Wpgpxmapsmerge_Public. Defines all hooks for the public side of the site.
+	 * - wpgpxmerge_Loader. Orchestrates the hooks of the plugin.
+	 * - wpgpxmerge_i18n. Defines internationalization functionality.
+	 * - wpgpxmerge_Admin. Defines all hooks for the admin area.
+	 * - wpgpxmerge_Public. Defines all hooks for the public side of the site.
 	 *
 	 * Create an instance of the loader which will be used to register the hooks
 	 * with WordPress.
@@ -99,45 +102,38 @@ class Wpgpxmapsmerge {
 		/**
 		 * main gpx merge functionality
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-libgpxmerge.php';
-
-		/**
-		 * The class responsible for orchestrating the actions and filters of the
-		 * core plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpgpxmapsmerge-loader.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpgpxmapsmerge-i18n.php';
+		$libs_path = plugin_dir_path( dirname( __FILE__ ) ) . 'includes/';
+		$libs = scandir($libs_path);
+		foreach ($libs as $lib){
+			if(preg_match('/\.php$/',$lib))
+				require_once $libs_path.$lib;
+		}
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wpgpxmapsmerge-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-wpgpxmerge-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpgpxmapsmerge-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-wpgpxmerge-public.php';
 
 
 		/**
 		 * The class responsible for managing saved maps
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpgpxmapsmerge-map.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wpgpxmerge-map.php';
 
-		$this->loader = new Wpgpxmapsmerge_Loader();
+		$this->loader = new wpgpxmerge_Loader();
 
 	}
 
 	/**
 	 * Define the locale for this plugin for internationalization.
 	 *
-	 * Uses the Wpgpxmapsmerge_i18n class in order to set the domain and to register the hook
+	 * Uses the wpgpxmerge_i18n class in order to set the domain and to register the hook
 	 * with WordPress.
 	 *
 	 * @since    1.0.0
@@ -145,7 +141,7 @@ class Wpgpxmapsmerge {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Wpgpxmapsmerge_i18n();
+		$plugin_i18n = new wpgpxmerge_i18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -160,7 +156,7 @@ class Wpgpxmapsmerge {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Wpgpxmapsmerge_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new wpgpxmerge_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -185,13 +181,10 @@ class Wpgpxmapsmerge {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Wpgpxmapsmerge_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new wpgpxmerge_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-
-
-		
 
 	}
 
@@ -219,7 +212,7 @@ class Wpgpxmapsmerge {
 	 * The reference to the class that orchestrates the hooks with the plugin.
 	 *
 	 * @since     1.0.0
-	 * @return    Wpgpxmapsmerge_Loader    Orchestrates the hooks of the plugin.
+	 * @return    wpgpxmerge_Loader    Orchestrates the hooks of the plugin.
 	 */
 	public function get_loader() {
 		return $this->loader;

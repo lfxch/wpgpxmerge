@@ -6,8 +6,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/public
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/public
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/public
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/public
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge_Public {
+class wpgpxmerge_Public {
 
 	/**
 	 * The ID of this plugin.
@@ -65,15 +65,15 @@ class Wpgpxmapsmerge_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpgpxmapsmerge_Loader as all of the hooks are defined
+		 * defined in wpgpxmerge_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpgpxmapsmerge_Loader will then create the relationship
+		 * The wpgpxmerge_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpgpxmapsmerge-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpgpxmerge-public.css', array(), $this->version, 'all' );
 
 	}
 
@@ -88,15 +88,15 @@ class Wpgpxmapsmerge_Public {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpgpxmapsmerge_Loader as all of the hooks are defined
+		 * defined in wpgpxmerge_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpgpxmapsmerge_Loader will then create the relationship
+		 * The wpgpxmerge_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpgpxmapsmerge-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpgpxmerge-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

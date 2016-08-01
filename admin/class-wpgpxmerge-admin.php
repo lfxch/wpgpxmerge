@@ -6,8 +6,8 @@
  * @link       http://lfx.ch/
  * @since      1.0.0
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/admin
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/admin
  */
 
 /**
@@ -16,11 +16,11 @@
  * Defines the plugin name, version, and two examples hooks for how to
  * enqueue the admin-specific stylesheet and JavaScript.
  *
- * @package    Wpgpxmapsmerge
- * @subpackage Wpgpxmapsmerge/admin
+ * @package    wpgpxmerge
+ * @subpackage wpgpxmerge/admin
  * @author     Christian Moser <chris@lfx.ch>
  */
-class Wpgpxmapsmerge_Admin {
+class wpgpxmerge_Admin {
 
 	/**
 	 * The ID of this plugin.
@@ -65,15 +65,16 @@ class Wpgpxmapsmerge_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpgpxmapsmerge_Loader as all of the hooks are defined
+		 * defined in wpgpxmerge_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpgpxmapsmerge_Loader will then create the relationship
+		 * The wpgpxmerge_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/wpgpxmapsmerge-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ )
+			. 'css/wpgpxmerge-admin.css', array(), $this->version, 'all' );
 
 	}
 
@@ -88,15 +89,16 @@ class Wpgpxmapsmerge_Admin {
 		 * This function is provided for demonstration purposes only.
 		 *
 		 * An instance of this class should be passed to the run() function
-		 * defined in Wpgpxmapsmerge_Loader as all of the hooks are defined
+		 * defined in wpgpxmerge_Loader as all of the hooks are defined
 		 * in that particular class.
 		 *
-		 * The Wpgpxmapsmerge_Loader will then create the relationship
+		 * The wpgpxmerge_Loader will then create the relationship
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wpgpxmapsmerge-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ )
+			. 'js/wpgpxmerge-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
 
@@ -116,14 +118,16 @@ class Wpgpxmapsmerge_Admin {
 		 *        Administration Menus: http://codex.wordpress.org/Administration_Menus
 		 *
 		 */
-		add_options_page( 'GPX MAPS Merge Addon', 'GPX MAPS Merge', 'manage_options', $this->plugin_name, array($this, 'display_plugin_setup_page')
-		);
+		add_options_page( 'GPX Merge', 'GPX Merge', 'manage_options',
+			$this->plugin_name, array($this, 'display_plugin_setup_page')	);
 	}
 
 	/**
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.0
+	 * @param $links
+	 * @return array
 	 */
 
 	public function add_action_links( $links ) {
@@ -131,7 +135,8 @@ class Wpgpxmapsmerge_Admin {
 		*  Documentation : https://codex.wordpress.org/Plugin_API/Filter_Reference/plugin_action_links_(plugin_file_name)
 		*/
 		$settings_link = array(
-			'<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name ) . '">' . __('Settings', $this->plugin_name) . '</a>',
+			'<a href="' . admin_url( 'options-general.php?page=' . $this->plugin_name )
+			. '">' . __('Settings', $this->plugin_name) . '</a>',
 		);
 		return array_merge(  $settings_link, $links );
 
@@ -145,29 +150,7 @@ class Wpgpxmapsmerge_Admin {
 	 */
 
 	public function display_plugin_setup_page() {
-		include_once( 'partials/wpgpxmapsmerge-admin-display.php' );
-	}
-
-	/**
-	 * save function for admin page
-	 */
-	public function save(){
-		
-		if(empty($_POST) || is_array($_POST))
-			return false;
-		
-		$options = array();
-		
-		foreach($_POST as $k => $v){
-			if(preg_match('/^wpgpxmapsmerge_/',$k)){
-				$options[str_replace('wpgpxmapsmerge_','',$k)] = $_POST[$k];
-			}
-		}
-		
-		
-		
-
-
+		include_once( 'partials/wpgpxmerge-admin-display.php' );
 	}
 
 }
