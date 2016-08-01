@@ -1,0 +1,159 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+.wgmm_tracks {
+
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #32373c;
+    outline: 0 none;
+    transition: border-color 50ms ease-in-out 0s;
+    overflow: scroll;
+    padding: 3px;
+    zzwidth: 350px;
+    height: 400px;
+
+}
+
+.wgmm_tracks .trackfile {
+    padding: 0.625em;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    border: 1px solid #ddd;
+    margin-bottom: 3px;
+    background-color: #eee;
+    display: table;
+    width: 100%;
+
+}
+
+.cell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.wgmm_tracks .cell:first-of-type {
+    width: 100%;
+}
+
+.cell button {
+    padding: 0.5em;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin: 3px;
+}
+
+#available_tracks .sel {
+    zdisplay: none;
+    visibility: hidden;
+}
+
+#selected_tracks .avail {
+    zdisplay: none;
+    visibility: hidden;
+}
+
+#selected_tracks .trackfile:first-of-type .b_up {
+    zdisplay: none;
+    visibility: hidden;
+}
+
+#selected_tracks .trackfile:last-of-type .b_down {
+    zdisplay: none;
+    visibility: hidden;
+}
+
+
+
+
+.wgmm_tracks .trackfile span{
+    display: block;
+}
+
+.wgmm_tracks .trackfile .relpath{
+    font-size: x-small;
+}
+
+.wgmm_tracks .trackfile .filename{
+    font-size: large;
+}
+
+.wgmm_tracks input[type=checkbox] {
+    display: none;
+}
+
+
+
+#wgmm_embedd {
+    border: 1px dashed red;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #32373c;
+    background-color: #fff;
+    padding: 10px;
+    font-size: x-large;
+    display: block;
+
+}
+
+.wgmm_messages {
+    border: 1px dashed #32373c;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+    color: #32373c;
+    background-color: #fff;
+    padding: 10px;
+    font-size: medium;
+}
+
+.wgmm_messages span {
+    display: block;
+}
+
+.wgmm_messages .wqmm_error {
+    color: red;
+}
+
+.wgmm_messages .wqmm_warn {
+    color: orange;
+}
+
+.wgmm_messages .wqmm_info {
+    color: #32373c;
+}
+
+.wgmm_messages .wqmm_debug {
+    color: #32373c;
+}
+
+.log_div {
+    border: 1px solid darkgreen;
+    background-color: #b5ffb5;
+    font-size: large;
+    padding: 20px;
+    margin-top: 1em;
+
+}
+
+#log {
+    border: 1px solid darkgoldenrod;
+    background-color: wheat;
+    font-size: x-small;
+    padding: 10px;
+}
+
+#preview {
+    padding: 20px;
+}
+
+.wpgpxmerge_table td + td {
+    text-align: right;
+}
+
+.wpgpxmerge_table th  {
+    text-align: left;
+}
+
+.wpgpxmerge_table th + th {
+    text-align: right;
+}

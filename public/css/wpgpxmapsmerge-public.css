@@ -1,0 +1,25 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+
+
+.wpgpxmerge_table td {
+    white-space: nowrap;
+    font-size: small;
+}
+
+.wpgpxmerge_table td + td {
+    text-align: right;
+}
+
+.wpgpxmerge_table th  {
+    text-align: left;
+    color: white;
+    background-color: black;
+}
+
+.wpgpxmerge_table th + th {
+    text-align: right;
+}
